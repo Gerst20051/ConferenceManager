@@ -1,6 +1,8 @@
 # ConferenceManager
 
-Manage talks and attendees at a conference.
+Manage talks and attendees for conferences.
+
+Open [http://hnswave.co/conference-manager/](http://hnswave.co/conference-manager/) to view it in the browser.
 
 ## Setup Repo
 
