@@ -1,10 +1,60 @@
 import { useEffect, useState } from 'react';
-import { Box, Typography } from '@material-ui/core';
+import { Box, List, ListItem, ListItemText, Typography } from '@material-ui/core';
 
-export default function ConferenceList() {
+export default function ConferenceList(props) {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [conferences, setConferences] = useState([]);
+  const [conferences, setConferences] = useState([{
+    id: 'sadfsfa',
+    name: 'conference name 1',
+    attendees: [
+      {
+        id: 'sdfasdff',
+        name: 'attendee name 1',
+      },
+      {
+        id: 'sdfassdfsdfdff',
+        name: 'attendee name 2',
+      },
+    ],
+    talks: [
+      {
+        id: 'sdfasdff',
+        name: 'talk name',
+        attendees: [
+          {
+            id: 'sdfassdfsdfdff',
+            name: 'attendee name 2',
+          },
+        ],
+      },
+    ],
+  },{
+    id: 'sadsdfsdfsfa',
+    name: 'conference name 2',
+    attendees: [
+      {
+        id: 'sdfasdff',
+        name: 'attendee name 1',
+      },
+      {
+        id: 'sdfassdfsdfdff',
+        name: 'attendee name 2',
+      },
+    ],
+    talks: [
+      {
+        id: 'sdfasdff',
+        name: 'talk name',
+        attendees: [
+          {
+            id: 'sdfassdfsdfdff',
+            name: 'attendee name 2',
+          },
+        ],
+      },
+    ],
+  }]);
 
   useEffect(() => {
     fetch('https://q8sxd5phn7.execute-api.us-east-1.amazonaws.com/dev/conferences')
@@ -12,30 +62,32 @@ export default function ConferenceList() {
       .then(
         (result) => {
           setIsLoaded(true);
-          setConferences(result);
+          // setConferences(result);
         },
         (error) => {
           setIsLoaded(true);
           setError(error);
         }
       );
-  }, []);
+  }, [props.conference]);
 
   if (error) {
-    return <div>Error Loading Conferences</div>;
+    return <Box><br /><Typography>Error Loading Conferences</Typography><br /></Box>;
   } else if (!isLoaded) {
-    return <div>Loading Conferences...</div>;
+    return <Box><br /><Typography>Loading Conferences...</Typography><br /></Box>;
   } else if (!conferences.length) {
     return <Box><br /><Typography>No Conferences Exist</Typography><br /></Box>;
   } else {
     return (
-      <ul>
+      <List>
         {conferences.map(conference => (
-          <li key={conference.id}>
-            {conference.name}
-          </li>
+          <ListItem key={conference.id} onClick={() => {
+            props.setConference(conference);
+          }}>
+            <ListItemText primary={conference.name} align="center" />
+          </ListItem>
         ))}
-      </ul>
+      </List>
     );
   }
 }
