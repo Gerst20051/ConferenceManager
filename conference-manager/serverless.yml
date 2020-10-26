@@ -13,3 +13,4 @@ functions:
       - http:
           path: /hello
           method: GET
+          cors: true
