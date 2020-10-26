@@ -35,7 +35,7 @@ https://github.com/facebook/create-react-app
 
 ### Invoke Lambda (Locally)
 
-[$]> `serverless invoke local -f hello -l`
+[$]> `serverless invoke local -f app -l -d '{ "path": "/request" }'`
 
 ### Deploy Lambda To AWS
 
@@ -43,7 +43,7 @@ https://github.com/facebook/create-react-app
 
 ### Invoke Lambda (AWS)
 
-[$]> `serverless invoke -f hello -l`
+[$]> `serverless invoke -f app -l -d '{ "path": "/request" }'`
 
 ## Frontend Instructions
 

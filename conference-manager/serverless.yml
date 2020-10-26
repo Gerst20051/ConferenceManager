@@ -7,10 +7,14 @@ provider:
   runtime: nodejs12.x
 
 functions:
-  hello:
-    handler: handler.hello
+  app:
+    handler: app/app.handler
     events:
       - http:
-          path: /hello
-          method: GET
+          path: /
+          method: ANY
+          cors: true
+      - http:
+          path: /{proxy+}
+          method: ANY
           cors: true

@@ -6,7 +6,7 @@ export default function Message() {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    fetch('https://q8sxd5phn7.execute-api.us-east-1.amazonaws.com/dev/hello')
+    fetch('https://q8sxd5phn7.execute-api.us-east-1.amazonaws.com/dev/request')
       .then(res => res.json())
       .then(
         (result) => {
