@@ -66,7 +66,7 @@ export default function ConferenceList(props) {
       },
     ],
   }, {
-    id: 'sadsdfsdfsfa',
+    id: 'sadsdfsdfsfasfdsf',
     name: 'Empty Conference',
     attendees: [],
     talks: [],
@@ -78,7 +78,7 @@ export default function ConferenceList(props) {
       .then(
         result => {
           setIsLoaded(true);
-          // setConferences(result);
+          setConferences(result);
         },
         error => {
           setIsLoaded(true);

@@ -31,18 +31,22 @@ export default function ConferenceManager() {
     setForm({});
   };
 
-  const handleAdd = () => {
+  const handleAdd = async () => {
     if (!form.conference_name) return;
     setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      setOpen(false);
-      setConference({
-        id: 'tewsoidfj',
-        name: form.conference_name,
-      });
-      setForm({});
-    }, 2000);
+    const response = await fetch('https://q8sxd5phn7.execute-api.us-east-1.amazonaws.com/dev/conferences', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ conference_name: form.conference_name }),
+    });
+    const json = await response.json();
+    setIsLoading(false);
+    setOpen(false);
+    setConference(json);
+    setForm({});
   };
 
   return (
