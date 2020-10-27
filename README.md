@@ -61,4 +61,6 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ### Build Production Deployment
 
+[$]> `npm run build`
+
 [$]> `PUBLIC_URL=http://hnswave.co/conference-manager/ npm run build`

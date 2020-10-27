@@ -14,8 +14,11 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.common.white,
     zIndex: theme.zIndex.drawer + 1,
   },
+  leftHeaderButton: {
+    marginRight: theme.spacing(1),
+  },
   leftHeaderIcon: {
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(2.5),
   },
 }));
 
@@ -53,7 +56,11 @@ export default function ConferenceManager() {
     <Fragment>
       <Header text="Conference Manager" leftContent={
         conference
-          ? <ArrowBackIcon className={classes.leftHeaderIcon} onClick={() => setConference()} />
+          ? (
+            <IconButton className={classes.leftHeaderButton} edge="start" color="inherit" onClick={() => setConference()}>
+              <ArrowBackIcon />
+            </IconButton>
+          )
           : <GroupIcon className={classes.leftHeaderIcon} />
       } rightContent={(
         <IconButton edge="end" color="inherit" onClick={() => setOpen(true)}>
