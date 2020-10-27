@@ -31,7 +31,7 @@ export default function ConferenceList(props) {
     talks: [
       {
         id: 'sdfasdff',
-        name: 'talk name',
+        name: 'talk name 1',
         attendees: [
           {
             id: 'sdfassdfsdfdff',
@@ -56,7 +56,7 @@ export default function ConferenceList(props) {
     talks: [
       {
         id: 'sdfasdff',
-        name: 'talk name',
+        name: 'talk name 2',
         attendees: [
           {
             id: 'sdfassdfsdfdff',
@@ -65,6 +65,11 @@ export default function ConferenceList(props) {
         ],
       },
     ],
+  }, {
+    id: 'sadsdfsdfsfa',
+    name: 'Empty Conference',
+    attendees: [],
+    talks: [],
   }]);
 
   useEffect(() => {
