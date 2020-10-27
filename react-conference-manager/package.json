@@ -17,13 +17,49 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint src/**/*.js",
+    "lint:fix": "eslint src/**/*.js --fix"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
-    ]
+      "react-app/jest",
+      "eslint-config-airbnb"
+    ],
+    "plugins": ["simple-import-sort"],
+    "rules": {
+      "arrow-parens": [
+        "error",
+        "as-needed"
+      ],
+      "comma-dangle": [
+        "error",
+        {
+          "arrays": "always-multiline",
+          "objects": "always-multiline",
+          "imports": "always-multiline",
+          "exports": "always",
+          "functions": "never"
+        }
+      ],
+      "no-else-return": "off",
+      "no-shadow": "off",
+      "no-unused-vars": "off",
+      "object-curly-newline": "off",
+      "react/destructuring-assignment": "off",
+      "react/jsx-closing-bracket-location": "off",
+      "react/jsx-curly-newline": "off",
+      "react/jsx-fragments": "off",
+      "react/jsx-filename-extension": "off",
+      "react/jsx-first-prop-new-line": "off",
+      "react/jsx-max-props-per-line": "off",
+      "react/jsx-one-expression-per-line": "off",
+      "react/prop-types": "off",
+      "react/react-in-jsx-scope": "off",
+      "simple-import-sort/sort": "error",
+      "sort-imports": "off"
+    }
   },
   "browserslist": {
     "production": [
@@ -36,5 +72,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-plugin-simple-import-sort": "^5.0.3"
   }
 }

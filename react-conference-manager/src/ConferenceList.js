@@ -1,7 +1,18 @@
-import { useEffect, useState } from 'react';
 import { Box, List, ListItem, ListItemText, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { useEffect, useState } from 'react';
+
+const useStyles = makeStyles(theme => ({
+  listItem: {
+    cursor: 'pointer',
+    '&:hover': {
+      backgroundColor: theme.palette.action.hover,
+    },
+  },
+}));
 
 export default function ConferenceList(props) {
+  const classes = useStyles();
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [conferences, setConferences] = useState([{
@@ -29,7 +40,7 @@ export default function ConferenceList(props) {
         ],
       },
     ],
-  },{
+  }, {
     id: 'sadsdfsdfsfa',
     name: 'conference name 2',
     attendees: [
@@ -60,11 +71,11 @@ export default function ConferenceList(props) {
     fetch('https://q8sxd5phn7.execute-api.us-east-1.amazonaws.com/dev/conferences')
       .then(res => res.json())
       .then(
-        (result) => {
+        result => {
           setIsLoaded(true);
           // setConferences(result);
         },
-        (error) => {
+        error => {
           setIsLoaded(true);
           setError(error);
         }
@@ -79,9 +90,9 @@ export default function ConferenceList(props) {
     return <Box><br /><Typography>No Conferences Exist</Typography><br /></Box>;
   } else {
     return (
-      <List>
+      <List disablePadding>
         {conferences.map(conference => (
-          <ListItem key={conference.id} onClick={() => {
+          <ListItem divider key={conference.id} className={classes.listItem} onClick={() => {
             props.setConference(conference);
           }}>
             <ListItemText primary={conference.name} align="center" />

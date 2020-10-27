@@ -1,15 +1,15 @@
-import { useState, Fragment } from 'react';
-import { Box, IconButton, Paper } from '@material-ui/core';
-import { Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@material-ui/core';
+import { Box, Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, Paper, TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import GroupIcon from '@material-ui/icons/Group';
+import { Fragment, useState } from 'react';
+
 import Conference from './Conference';
 import ConferenceList from './ConferenceList';
 import Header from './Header';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   leftHeaderIcon: {
     marginRight: theme.spacing(2),
   },
@@ -23,30 +23,33 @@ export default function ConferenceManager() {
   const classes = useStyles();
 
   const handleAdd = () => {
+    if (!form.conference_name) return;
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
       setOpen(false);
       setConference({
         id: 'tewsoidfj',
-        name: form.name,
+        name: form.conference_name,
       });
-    }, 3000);
+    }, 2000);
   };
 
   return (
     <Fragment>
       <Header text="Conference Manager" leftContent={
         conference
-          ? <ArrowBackIcon className={classes.leftHeaderIcon} onClick={() => {
-            setConference();
-          }} />
+          ? (
+            <ArrowBackIcon className={classes.leftHeaderIcon} onClick={() => {
+              setConference();
+            }} />
+          )
           : <GroupIcon className={classes.leftHeaderIcon} />
-      } rightContent={
+      } rightContent={(
         <IconButton edge="end" color="inherit" onClick={() => setOpen(true)}>
           <AddIcon />
         </IconButton>
-      } />
+      )} />
       <Paper variant="outlined" square>
         <Box align="center">
           { conference
@@ -64,14 +67,14 @@ export default function ConferenceManager() {
           <TextField
             autoFocus
             margin="dense"
-            id="name"
+            id="conference_name"
             label="Conference Name"
             type="text"
             fullWidth
-            onChange={(e) => {
+            onChange={e => {
               setForm({
                 ...form,
-                name: e.target.value,
+                conference_name: e.target.value,
               });
             }}
           />
