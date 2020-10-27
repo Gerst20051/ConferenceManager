@@ -88,11 +88,11 @@ export default function ConferenceList(props) {
   }, [props.conference]);
 
   if (error) {
-    return <Box><br /><Typography>Error Loading Conferences</Typography><br /></Box>;
+    return <Box py={2}><Typography>Error Loading Conferences</Typography></Box>;
   } else if (!isLoaded) {
-    return <Box><br /><Typography>Loading Conferences...</Typography><br /></Box>;
+    return <Box py={2}><Typography>Loading Conferences...</Typography></Box>;
   } else if (!conferences.length) {
-    return <Box><br /><Typography>No Conferences Exist</Typography><br /></Box>;
+    return <Box py={2}><Typography>No Conferences Exist</Typography></Box>;
   } else {
     return (
       <List disablePadding>
