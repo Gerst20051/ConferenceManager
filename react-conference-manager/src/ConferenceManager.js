@@ -1,4 +1,4 @@
-import { Box, Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, Paper, TextField } from '@material-ui/core';
+import { Backdrop, Box, Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, Paper, TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
@@ -10,6 +10,10 @@ import ConferenceList from './ConferenceList';
 import Header from './Header';
 
 const useStyles = makeStyles(theme => ({
+  backdrop: {
+    color: theme.palette.common.white,
+    zIndex: theme.zIndex.drawer + 1,
+  },
   leftHeaderIcon: {
     marginRight: theme.spacing(2),
   },
@@ -22,6 +26,11 @@ export default function ConferenceManager() {
   const [form, setForm] = useState({});
   const classes = useStyles();
 
+  const handleClose = () => {
+    setOpen(false);
+    setForm({});
+  };
+
   const handleAdd = () => {
     if (!form.conference_name) return;
     setIsLoading(true);
@@ -32,6 +41,7 @@ export default function ConferenceManager() {
         id: 'tewsoidfj',
         name: form.conference_name,
       });
+      setForm({});
     }, 2000);
   };
 
@@ -39,11 +49,7 @@ export default function ConferenceManager() {
     <Fragment>
       <Header text="Conference Manager" leftContent={
         conference
-          ? (
-            <ArrowBackIcon className={classes.leftHeaderIcon} onClick={() => {
-              setConference();
-            }} />
-          )
+          ? <ArrowBackIcon className={classes.leftHeaderIcon} onClick={() => setConference()} />
           : <GroupIcon className={classes.leftHeaderIcon} />
       } rightContent={(
         <IconButton edge="end" color="inherit" onClick={() => setOpen(true)}>
@@ -58,7 +64,7 @@ export default function ConferenceManager() {
           }
         </Box>
       </Paper>
-      <Dialog open={open} onClose={() => setOpen(false)}>
+      <Dialog open={open && !isLoading} onClose={handleClose}>
         <DialogTitle>Add Conference</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -80,19 +86,17 @@ export default function ConferenceManager() {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setOpen(false)} color="primary">
+          <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          { isLoading
-            ? <CircularProgress />
-            : (
-              <Button onClick={handleAdd} color="primary">
-                Add
-              </Button>
-            )
-          }
+          <Button onClick={handleAdd} color="primary" disabled={isLoading}>
+            Add
+          </Button>
         </DialogActions>
       </Dialog>
+      <Backdrop className={classes.backdrop} open={isLoading}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </Fragment>
   );
 }
