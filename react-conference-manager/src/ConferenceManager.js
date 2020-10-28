@@ -7,6 +7,7 @@ import { Fragment, useState } from 'react';
 
 import Conference from './Conference';
 import ConferenceList from './ConferenceList';
+import config from './config';
 import Header from './Header';
 
 const useStyles = makeStyles(theme => ({
@@ -37,7 +38,7 @@ export default function ConferenceManager() {
   const handleAdd = async () => {
     if (!form.conference_name) return;
     setIsLoading(true);
-    const response = await fetch('https://q8sxd5phn7.execute-api.us-east-1.amazonaws.com/dev/conferences', {
+    const response = await fetch(`${config.API_URL}/conferences`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -75,6 +76,9 @@ export default function ConferenceManager() {
           }
         </Box>
       </Paper>
+      <Box align="center" py={2}>
+        <small>You are running this application in <b>{process.env.NODE_ENV}</b> mode.</small>
+      </Box>
       <Dialog open={open && !isLoading} onClose={handleClose}>
         <DialogTitle>Add Conference</DialogTitle>
         <DialogContent>

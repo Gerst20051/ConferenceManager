@@ -2,6 +2,8 @@ import { Box, List, ListItem, ListItemText, Typography } from '@material-ui/core
 import { makeStyles } from '@material-ui/core/styles';
 import { useEffect, useState } from 'react';
 
+import config from './config';
+
 const useStyles = makeStyles(theme => ({
   listItem: {
     cursor: 'pointer',
@@ -73,7 +75,7 @@ export default function ConferenceList(props) {
   }]);
 
   useEffect(() => {
-    fetch('https://q8sxd5phn7.execute-api.us-east-1.amazonaws.com/dev/conferences')
+    fetch(`${config.API_URL}/conferences`)
       .then(res => res.json())
       .then(
         result => {

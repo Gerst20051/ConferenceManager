@@ -35,6 +35,12 @@ https://github.com/facebook/create-react-app
 
 ## Backend Instructions
 
+[$]> `cd conference-manager`
+
+### Start Serverless Offline (Locally)
+
+[$]> `npm start` => `sls offline start`
+
 ### Invoke Lambda (Locally)
 
 [$]> `serverless invoke local -f app -l -d '{ "path": "/request" }'`
@@ -49,11 +55,13 @@ https://github.com/facebook/create-react-app
 
 ## Frontend Instructions
 
+[$]> `cd react-conference-manager`
+
 ### Run Development Server
 
-[$]> `npm start`
+[$]> `npm start` => `PORT=4000 react-scripts start`
 
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open [http://localhost:4000](http://localhost:4000) to view it in the browser.
 
 ### Run Testing Scripts
 
@@ -61,6 +69,4 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ### Build Production Deployment
 
-[$]> `npm run build`
-
-[$]> `PUBLIC_URL=http://hnswave.co/conference-manager/ npm run build`
+[$]> `npm run build` => `PUBLIC_URL=http://hnswave.co/conference-manager/ npm run build`
