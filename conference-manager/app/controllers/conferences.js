@@ -79,6 +79,7 @@ module.exports = (function () {
       const conferences = await this.db.getConferences();
       res.send(conferences.map(this.transformConference));
     } catch (e) {
+      console.error(e);
       res.sendStatus(500);
     }
   };

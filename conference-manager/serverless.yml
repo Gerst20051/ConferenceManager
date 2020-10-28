@@ -13,6 +13,21 @@ provider:
     ATTENDEES_TABLE: ${self:service}-attendees-${opt:stage, self:provider.stage}
     CONFERENCES_TABLE: ${self:service}-conferences-${opt:stage, self:provider.stage}
     TALKS_TABLE: ${self:service}-talks-${opt:stage, self:provider.stage}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:BatchGetItem
+        - dynamodb:BatchWriteItem
+        - dynamodb:DeleteItem
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:UpdateItem
+      Resource:
+        - !GetAtt AttendeesDynamoDBTable.Arn
+        - !GetAtt ConferencesDynamoDBTable.Arn
+        - !GetAtt TalksDynamoDBTable.Arn
 
 custom:
   dynamodb:
