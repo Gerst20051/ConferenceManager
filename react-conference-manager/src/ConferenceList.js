@@ -17,62 +17,7 @@ export default function ConferenceList(props) {
   const classes = useStyles();
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [conferences, setConferences] = useState([{
-    id: 'sadfsfa',
-    name: 'conference name 1',
-    attendees: [
-      {
-        id: 'sdfasdff',
-        name: 'attendee name 1',
-      },
-      {
-        id: 'sdfassdfsdfdff',
-        name: 'attendee name 2',
-      },
-    ],
-    talks: [
-      {
-        id: 'sdfasdff',
-        name: 'talk name 1',
-        attendees: [
-          {
-            id: 'sdfassdfsdfdff',
-            name: 'attendee name 2',
-          },
-        ],
-      },
-    ],
-  }, {
-    id: 'sadsdfsdfsfa',
-    name: 'conference name 2',
-    attendees: [
-      {
-        id: 'sdfasdff',
-        name: 'attendee name 1',
-      },
-      {
-        id: 'sdfassdfsdfdff',
-        name: 'attendee name 2',
-      },
-    ],
-    talks: [
-      {
-        id: 'sdfasdff',
-        name: 'talk name 2',
-        attendees: [
-          {
-            id: 'sdfassdfsdfdff',
-            name: 'attendee name 2',
-          },
-        ],
-      },
-    ],
-  }, {
-    id: 'sadsdfsdfsfasfdsf',
-    name: 'Empty Conference',
-    attendees: [],
-    talks: [],
-  }]);
+  const [conferences, setConferences] = useState([]);
 
   useEffect(() => {
     fetch(`${config.API_URL}/conferences`)

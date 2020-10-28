@@ -1,4 +1,16 @@
+const AWS = require('aws-sdk');
 const { v4: uuidv4 } = require('uuid');
+
+const { CONFERENCES_TABLE, IS_OFFLINE } = process.env;
+
+const dynamoDb = new AWS.DynamoDB.DocumentClient(
+  IS_OFFLINE === 'true'
+    ? {
+      region: 'localhost',
+      endpoint: 'http://localhost:8000',
+    }
+    : undefined
+);
 
 module.exports = (function () {
   this.conferences = [];
@@ -29,16 +41,26 @@ module.exports = (function () {
     };
   };
 
+  this.db = {
+    getConferences: async () => {
+      const result = await dynamoDb.scan({
+        TableName: CONFERENCES_TABLE,
+      }).promise();
+      return result.Items;
+    },
+  };
+
   this.transformConference = (conference) => {
     return {
       id: conference.id,
       name: conference.name,
       attendees: conference.attendee_ids.map(attendeeId => {
         return this.attendees.find(attendee => attendee.id === attendeeId);
-      }),
+      }).filter(Boolean),
       talks: conference.talk_ids.map(talkId => {
-        return this.transformTalk(this.talks.find(talk => talk.id === talkId));
-      }),
+        const talk = this.talks.find(talk => talk.id === talkId);
+        return talk ? this.transformTalk(talk) : null;
+      }).filter(Boolean),
     };
   };
 
@@ -48,12 +70,17 @@ module.exports = (function () {
       name: talk.name,
       attendees: talk.attendee_ids.map(attendeeId => {
         return this.attendees.find(attendee => attendee.id === attendeeId);
-      }),
+      }).filter(Boolean),
     };
   };
 
-  this.getConferences = (req, res) => {
-    res.send(this.conferences.map(this.transformConference));
+  this.getConferences = async (req, res) => {
+    try {
+      const conferences = await this.db.getConferences();
+      res.send(conferences.map(this.transformConference));
+    } catch (e) {
+      res.sendStatus(500);
+    }
   };
 
   this.createConference = (req, res) => {

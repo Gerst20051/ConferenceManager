@@ -37,6 +37,16 @@ https://github.com/facebook/create-react-app
 
 [$]> `cd conference-manager`
 
+[$]> `npm i`
+
+### Start Docker DynamoDB
+
+[$]> `npm run start:dynamodb`
+
+### Start DynamoDB Admin (Optional)
+
+[$]> `npm run start:dynamodb:admin`
+
 ### Start Serverless Offline (Locally)
 
 [$]> `npm start` => `sls offline start`
@@ -56,6 +66,8 @@ https://github.com/facebook/create-react-app
 ## Frontend Instructions
 
 [$]> `cd react-conference-manager`
+
+[$]> `npm i`
 
 ### Run Development Server
 

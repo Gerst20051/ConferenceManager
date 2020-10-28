@@ -3,11 +3,35 @@ service: conference-manager
 frameworkVersion: '2'
 
 plugins:
+  - serverless-dynamodb-local
   - serverless-offline
 
 provider:
   name: aws
   runtime: nodejs12.x
+  environment:
+    ATTENDEES_TABLE: ${self:service}-attendees-${opt:stage, self:provider.stage}
+    CONFERENCES_TABLE: ${self:service}-conferences-${opt:stage, self:provider.stage}
+    TALKS_TABLE: ${self:service}-talks-${opt:stage, self:provider.stage}
+
+custom:
+  dynamodb:
+    seed:
+      test:
+        sources:
+          - table: ${self:service}-attendees-${opt:stage, self:provider.stage}
+            sources: [./seeds/attendees.json]
+          - table: ${self:service}-conferences-${opt:stage, self:provider.stage}
+            sources: [./seeds/conferences.json]
+          - table: ${self:service}-talks-${opt:stage, self:provider.stage}
+            sources: [./seeds/talks.json]
+    stages:
+      - ${opt:stage, self:provider.stage}
+    start:
+      convertEmptyValues: true
+      migrate: true
+      noStart: true
+      seed: true
 
 functions:
   app:
@@ -21,3 +45,62 @@ functions:
           path: /{proxy+}
           method: ANY
           cors: true
+
+resources:
+  Resources:
+    AttendeesDynamoDBTable:
+      Type: AWS::DynamoDB::Table
+      DeletionPolicy: Delete
+      Properties:
+        TableName: ${self:provider.environment.ATTENDEES_TABLE}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: name
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+          - AttributeName: name
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+
+    ConferencesDynamoDBTable:
+      Type: AWS::DynamoDB::Table
+      DeletionPolicy: Delete
+      Properties:
+        TableName: ${self:provider.environment.CONFERENCES_TABLE}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: name
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+          - AttributeName: name
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+
+    TalksDynamoDBTable:
+      Type: AWS::DynamoDB::Table
+      DeletionPolicy: Delete
+      Properties:
+        TableName: ${self:provider.environment.TALKS_TABLE}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: name
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+          - AttributeName: name
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1

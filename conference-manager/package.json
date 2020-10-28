@@ -9,9 +9,13 @@
     "uuid": "^8.3.1"
   },
   "scripts": {
-    "start": "sls offline start"
+    "start": "sls offline start",
+    "start:dynamodb": "docker run --rm -p 8000:8000 dwmkerr/dynamodb -sharedDb",
+    "start:dynamodb:admin": "DYNAMO_ENDPOINT=http://localhost:8000 dynamodb-admin -p 8001"
   },
   "devDependencies": {
+    "dynamodb-admin": "^4.0.0",
+    "serverless-dynamodb-local": "^0.2.39",
     "serverless-offline": "^6.8.0"
   }
 }
