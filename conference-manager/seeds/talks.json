@@ -1,6 +1,7 @@
 [
   {
     "id": "ec9bf3c1-604b-412c-980c-fcb1d9705e72",
-    "name": "First Talk"
+    "name": "First Talk",
+    "attendee_ids": []
   }
 ]

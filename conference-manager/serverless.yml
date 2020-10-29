@@ -34,11 +34,11 @@ custom:
     seed:
       test:
         sources:
-          - table: ${self:service}-attendees-${opt:stage, self:provider.stage}
+          - table: ${self:provider.environment.ATTENDEES_TABLE}
             sources: [./seeds/attendees.json]
-          - table: ${self:service}-conferences-${opt:stage, self:provider.stage}
+          - table: ${self:provider.environment.CONFERENCES_TABLE}
             sources: [./seeds/conferences.json]
-          - table: ${self:service}-talks-${opt:stage, self:provider.stage}
+          - table: ${self:provider.environment.TALKS_TABLE}
             sources: [./seeds/talks.json]
     stages:
       - ${opt:stage, self:provider.stage}
@@ -71,13 +71,9 @@ resources:
         AttributeDefinitions:
           - AttributeName: id
             AttributeType: S
-          - AttributeName: name
-            AttributeType: S
         KeySchema:
           - AttributeName: id
             KeyType: HASH
-          - AttributeName: name
-            KeyType: RANGE
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
@@ -90,13 +86,9 @@ resources:
         AttributeDefinitions:
           - AttributeName: id
             AttributeType: S
-          - AttributeName: name
-            AttributeType: S
         KeySchema:
           - AttributeName: id
             KeyType: HASH
-          - AttributeName: name
-            KeyType: RANGE
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
@@ -109,13 +101,9 @@ resources:
         AttributeDefinitions:
           - AttributeName: id
             AttributeType: S
-          - AttributeName: name
-            AttributeType: S
         KeySchema:
           - AttributeName: id
             KeyType: HASH
-          - AttributeName: name
-            KeyType: RANGE
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
