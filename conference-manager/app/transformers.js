@@ -1,14 +1,12 @@
 const db = require('./db');
 
 module.exports = (function () {
-  this.attendee = async (attendee) => {
-    return {
-      id: attendee.id,
-      name: attendee.name,
-    };
-  };
+  this.attendee = async attendee => ({
+    id: attendee.id,
+    name: attendee.name,
+  });
 
-  this.conference = async (conference) => {
+  this.conference = async conference => {
     const dbAttendees = await db.getAttendeesByIds(conference.attendee_ids);
     const attendees = await Promise.all(dbAttendees.map(this.attendee));
     const dbTalks = await db.getTalksByIds(conference.talk_ids);
@@ -21,7 +19,7 @@ module.exports = (function () {
     };
   };
 
-  this.talk = async (talk) => {
+  this.talk = async talk => {
     const dbAttendees = await db.getAttendeesByIds(talk.attendee_ids);
     const attendees = await Promise.all(dbAttendees.map(this.attendee));
     return {

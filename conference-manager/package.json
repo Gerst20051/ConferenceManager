@@ -9,12 +9,60 @@
     "uuid": "^8.3.1"
   },
   "scripts": {
+    "lint": "eslint app/{*,**/*}.js",
+    "lint:fix": "eslint app/{*,**/*}.js --fix",
     "start": "sls offline start",
     "start:dynamodb": "docker run --rm -p 8000:8000 dwmkerr/dynamodb -sharedDb",
     "start:dynamodb:admin": "DYNAMO_ENDPOINT=http://localhost:8000 dynamodb-admin -p 8001"
   },
+  "eslintConfig": {
+    "extends": [
+      "airbnb-base"
+    ],
+    "settings": {
+      "import/core-modules": [
+        "aws-sdk"
+      ]
+    },
+    "plugins": [
+      "require-sort"
+    ],
+    "rules": {
+      "arrow-parens": [
+        "error",
+        "as-needed"
+      ],
+      "consistent-return": "off",
+      "func-names": "off",
+      "global-require": "off",
+      "max-len": [
+        "error",
+        120,
+        2,
+        {
+          "ignoreUrls": true,
+          "ignoreComments": true,
+          "ignoreRegExpLiterals": true,
+          "ignoreStrings": true,
+          "ignoreTemplateLiterals": true
+        }
+      ],
+      "no-console": "off",
+      "require-sort/require-sort": "error",
+      "wrap-iife": [
+        "error",
+        "any"
+      ]
+    }
+  },
   "devDependencies": {
+    "aws-sdk": "^2.781.0",
     "dynamodb-admin": "^4.0.0",
+    "eslint": "^7.12.1",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-require-sort": "^1.2.2",
+    "serverless": "^2.8.0",
     "serverless-dynamodb-local": "^0.2.39",
     "serverless-offline": "^6.8.0"
   }
