@@ -1,4 +1,4 @@
-import { Backdrop, Box, Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, Paper, TextField } from '@material-ui/core';
+import { Backdrop, Box, Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, List, ListItem, ListItemText, Paper, TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
@@ -26,6 +26,7 @@ const useStyles = makeStyles(theme => ({
 export default function ConferenceManager() {
   const [conference, setConference] = useState();
   const [open, setOpen] = useState(false);
+  const [openOptions, setOpenOptions] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState({});
   const classes = useStyles();
@@ -53,6 +54,10 @@ export default function ConferenceManager() {
     setForm({});
   };
 
+  const handleCloseOptions = () => {
+    setOpenOptions(false);
+  };
+
   return (
     <Fragment>
       <Header text="Conference Manager" leftContent={
@@ -64,7 +69,7 @@ export default function ConferenceManager() {
           )
           : <GroupIcon className={classes.leftHeaderIcon} />
       } rightContent={(
-        <IconButton edge="end" color="inherit" onClick={() => setOpen(true)}>
+        <IconButton edge="end" color="inherit" onClick={() => (conference ? setOpenOptions(true) : setOpen(true))}>
           <AddIcon />
         </IconButton>
       )} />
@@ -79,8 +84,18 @@ export default function ConferenceManager() {
       <Box align="center" py={2}>
         <small>You are running this application in <b>{process.env.NODE_ENV}</b> mode.</small>
       </Box>
+      <Dialog open={openOptions} onClose={handleCloseOptions}>
+        <List>
+          <ListItem button onClick={() => setOpenOptions(false)}>
+            <ListItemText primary="Add Talk" />
+          </ListItem>
+          <ListItem button onClick={() => setOpenOptions(false)}>
+            <ListItemText primary="Add Attendee" />
+          </ListItem>
+        </List>
+      </Dialog>
       <Dialog open={open && !isLoading} onClose={handleClose}>
-        <DialogTitle>Add Conference</DialogTitle>
+        <DialogTitle>{ conference ? 'Add Attendee/Talk' : 'Add Conference' }</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Enter the name for the conference.
