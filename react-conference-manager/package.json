@@ -33,6 +33,7 @@
         "error",
         "as-needed"
       ],
+      "consistent-return": "off",
       "comma-dangle": [
         "error",
         {

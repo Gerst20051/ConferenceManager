@@ -17,7 +17,9 @@ export default function ConferenceList(props) {
   const classes = useStyles();
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [conferences, setConferences] = useState([]);
+  const [conferences, setConferences] = useState(props.conferences || []);
+  const [isInitialLoad, setIsInitialLoad] = useState(props.conferences === undefined);
+  const { setConferences: propsSetConferences } = props;
 
   useEffect(() => {
     fetch(`${config.API_URL}/conferences`)
@@ -26,17 +28,18 @@ export default function ConferenceList(props) {
         result => {
           setIsLoaded(true);
           setConferences(result);
+          propsSetConferences(result);
         },
         error => {
           setIsLoaded(true);
           setError(error);
         }
       );
-  }, [props.conference]);
+  }, [props.conference, propsSetConferences]);
 
   if (error) {
     return <Box py={2}><Typography>Error Loading Conferences</Typography></Box>;
-  } else if (!isLoaded) {
+  } else if (!isLoaded && isInitialLoad) {
     return <Box py={2}><Typography>Loading Conferences...</Typography></Box>;
   } else if (!conferences.length) {
     return <Box py={2}><Typography>No Conferences Exist</Typography></Box>;

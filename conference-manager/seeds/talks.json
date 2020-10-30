@@ -2,6 +2,13 @@
   {
     "id": "ec9bf3c1-604b-412c-980c-fcb1d9705e72",
     "name": "First Talk",
+    "attendee_ids": [
+      "324deccd-aef5-45f7-9eda-bf9ab2cb551a"
+    ]
+  },
+  {
+    "id": "93020770-33dd-45bb-ab27-e4e4fe8def8a",
+    "name": "Second Talk",
     "attendee_ids": []
   }
 ]

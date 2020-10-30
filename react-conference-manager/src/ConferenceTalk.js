@@ -21,7 +21,7 @@ export default function ConferenceTalk(props) {
         <Typography>{ props.talk.name }</Typography>
       </Box>
       <Divider />
-      <Box py={2}>
+      <Box pt={2} pb={props.talk.attendees.length ? 0 : 2}>
         <Typography variant="h6">Talk Attendees</Typography>
         {
           props.talk.attendees.length
@@ -39,7 +39,6 @@ export default function ConferenceTalk(props) {
             : <Typography>No Attendees</Typography>
         }
       </Box>
-
     </Fragment>
   );
 }
