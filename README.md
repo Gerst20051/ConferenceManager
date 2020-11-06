@@ -82,3 +82,8 @@ Open [http://localhost:4000](http://localhost:4000) to view it in the browser.
 ### Build Production Deployment
 
 [$]> `npm run build` => `PUBLIC_URL=http://hnswave.co/conference-manager/ npm run build`
+
+### Swagger API Documentation
+
+Open [http://localhost:4000/?swagger](http://localhost:4000/?swagger) to view it in the browser.
+Open [http://hnswave.co/conference-manager/?swagger](http://hnswave.co/conference-manager/?swagger) to view it in the browser.
