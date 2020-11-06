@@ -57,7 +57,7 @@ https://github.com/facebook/create-react-app
 
 ### Deploy Lambda To AWS
 
-[$]> `serverless deploy`
+[$]> `npm run deploy` => `serverless deploy`
 
 ### Invoke Lambda (AWS)
 

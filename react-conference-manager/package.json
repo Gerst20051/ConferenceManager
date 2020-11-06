@@ -11,6 +11,7 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.0",
+    "swagger-ui-react": "^3.36.1",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
@@ -27,7 +28,9 @@
       "react-app/jest",
       "eslint-config-airbnb"
     ],
-    "plugins": ["simple-import-sort"],
+    "plugins": [
+      "simple-import-sort"
+    ],
     "rules": {
       "arrow-parens": [
         "error",

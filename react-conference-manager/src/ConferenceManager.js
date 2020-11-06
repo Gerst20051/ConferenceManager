@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function ConferenceManager() {
+export default function ConferenceManager(props) {
   const [backButtonEnabled, setBackButtonEnabled] = useState(true);
   const [backClickCount, setBackClickCount] = useState(0);
   const [showAddIcon, setShowAddIcon] = useState(true);
@@ -205,6 +205,9 @@ export default function ConferenceManager() {
       </Paper>
       <Box align="center" py={2}>
         <small>You are running this application in <b>{process.env.NODE_ENV}</b> mode.</small>
+      </Box>
+      <Box align="center" pb={2}>
+        <Button variant="contained" disableElevation onClick={() => props.setSwagger(true)}>Swagger API Documentation</Button>
       </Box>
       <Dialog open={openOptionsDialog} onClose={handleCloseOptions}>
         <List>

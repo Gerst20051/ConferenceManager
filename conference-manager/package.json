@@ -9,6 +9,7 @@
     "uuid": "^8.3.1"
   },
   "scripts": {
+    "deploy": "serverless deploy",
     "lint": "eslint app/{*,**/*}.js",
     "lint:fix": "eslint app/{*,**/*}.js --fix",
     "start": "sls offline start",

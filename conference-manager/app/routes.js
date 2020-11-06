@@ -22,4 +22,8 @@ module.exports = app => {
       },
     });
   });
+
+  app.get('/swagger', (req, res) => {
+    res.send(require('../swagger.json'));
+  });
 };
