@@ -2,7 +2,7 @@ const db = require('../db');
 const models = require('../models');
 const transformers = require('../transformers');
 
-module.exports = (function () {
+module.exports = new function () {
   this.addAttendee = async (req, res) => {
     try {
       const { attendeeId, conferenceId, talkId } = req.params;
@@ -114,6 +114,4 @@ module.exports = (function () {
       res.sendStatus(500);
     }
   };
-
-  return this;
-})();
+};

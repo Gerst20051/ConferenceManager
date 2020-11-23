@@ -1,6 +1,6 @@
 const db = require('./db');
 
-module.exports = (function () {
+module.exports = new function () {
   this.attendee = async attendee => ({
     id: attendee.id,
     name: attendee.name,
@@ -28,6 +28,4 @@ module.exports = (function () {
       attendees,
     };
   };
-
-  return this;
-})();
+};

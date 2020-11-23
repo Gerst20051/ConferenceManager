@@ -7,13 +7,30 @@
   },
   "host": "hnswave.co",
   "basePath": "/dev",
+  "tags": [
+    {
+      "name": "conferences",
+      "description": "endpoints for conferences"
+    },
+    {
+      "name": "talks",
+      "description": "endpoints for talks"
+    },
+    {
+      "name": "attendees",
+      "description": "endpoints for attendees"
+    }
+  ],
   "schemes": [
     "http"
   ],
   "paths": {
     "/conferences": {
       "get": {
-        "summary": "get array of conferences",
+        "tags": [
+          "conferences"
+        ],
+        "summary": "gets an array of conferences",
         "produces": [
           "application/json"
         ],
@@ -26,6 +43,246 @@
                 "$ref": "#/definitions/Conference"
               }
             }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "conferences"
+        ],
+        "summary": "creates a new conference",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "conference_name",
+            "description": "name of the conference",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "newly created conference",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Conference"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/conferences/{conferenceId}/talks": {
+      "get": {
+        "tags": [
+          "talks"
+        ],
+        "summary": "gets an array of talks for a conference",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "conferenceId",
+            "in": "path",
+            "description": "uuid of conference to return talks for",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "array of talks",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Talk"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "talks"
+        ],
+        "summary": "creates a new talk",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "talk_name",
+            "description": "name of the talk",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "newly created talk",
+            "schema": {
+              "$ref": "#/definitions/Talk"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/conferences/{conferenceId}/attendees": {
+      "post": {
+        "tags": [
+          "attendees"
+        ],
+        "summary": "creates a new attendee",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "attendee_name",
+            "description": "name of the attendee",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "newly created attendee",
+            "schema": {
+              "$ref": "#/definitions/Attendee"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/conferences/{conferenceId}/talks/{talkId}/attendees/{attendeeId}/add": {
+      "patch": {
+        "tags": [
+          "attendees"
+        ],
+        "summary": "adds an attendee to a talk",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "conferenceId",
+            "in": "path",
+            "description": "uuid of conference",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "talkId",
+            "in": "path",
+            "description": "uuid of talk",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "attendeeId",
+            "in": "path",
+            "description": "uuid of attendee to add to the specified talk",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "talk",
+            "schema": {
+              "$ref": "#/definitions/Talk"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "409": {
+            "description": "Conflict"
+          }
+        }
+      }
+    },
+    "/conferences/{conferenceId}/talks/{talkId}/attendees/{attendeeId}/remove": {
+      "patch": {
+        "tags": [
+          "attendees"
+        ],
+        "summary": "removes an attendee from a talk",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "conferenceId",
+            "in": "path",
+            "description": "uuid of conference",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "talkId",
+            "in": "path",
+            "description": "uuid of talk",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "attendeeId",
+            "in": "path",
+            "description": "uuid of attendee to remove from the specified talk",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "talk",
+            "schema": {
+              "$ref": "#/definitions/Talk"
+            }
+          },
+          "404": {
+            "description": "Not Found"
           }
         }
       }
